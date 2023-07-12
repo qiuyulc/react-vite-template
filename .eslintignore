@@ -1,0 +1,12 @@
+# 忽略文件检查
+.eslintrc.cjs
+
+vite.config.ts
+
+# 模板 https://github.com/TheSwordBreaker/vite-reactts-eslint-prettier/tree/main 
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+node_modules/*

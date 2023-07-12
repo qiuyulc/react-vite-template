@@ -1,0 +1,7 @@
+# 忽略需要格式化的文件
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+node_modules/*
