@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# npm run lint//原始内容
+# 在commit时调用lint-staged
+lint-staged 
