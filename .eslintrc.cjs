@@ -16,6 +16,7 @@ module.exports = {
         sourceType: "module",
         project: true,
         tsconfigRootDir: __dirname,
+        extraFileExtensions: [".less"]
     },
     plugins: ["react-refresh", 'prettier'],
     rules: {
