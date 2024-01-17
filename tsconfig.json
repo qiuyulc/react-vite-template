@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "noImplicitAny": true /*代码中是否存在隐式的any*/,
 
     /* Linting */
     "strict": true,
