@@ -26,5 +26,3 @@ npm run dev
 ```
 npm run build
 ```
-
-希望各位大佬请多给提意见和改进方案。

@@ -1,34 +1,84 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { Suspense } from 'react';
+import styles from './index.module.less';
+import { useLocation, useOutlet } from 'react-router-dom';
+import MenuCom from '@/components/menu';
+import Header from '@/components/headers';
+import TabsCom from '@/components/tabs';
+import Loading from '@/components/loading';
+import WaterMarkBox from '@/components/watermark/index';
+import { SwitchTransition, CSSTransition } from 'react-transition-group';
+import { useAppSelector } from '@/redux/hook';
+import _ from 'lodash';
+import { Layout } from 'antd';
+
+const { Content } = Layout;
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <>
-      <div>
-        <a href='https://vitejs.dev' target='_blank'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://react.dev' target='_blank'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className='read-the-docs'>
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+  const location = useLocation();
+  const routes = _.cloneDeep(
+    useAppSelector((state) => state.menuSlice.menu_list),
   );
+  const { layout } =
+    routes.find(
+      (route: global_menu) => '/' + route.key === location.pathname,
+    ) ?? {};
+  const currentOutlet = useOutlet();
+  const create_layout = (type: string | undefined) => {
+    if (type === 'App' || !type) {
+      return (
+        <>
+          <Header />
+          <Layout className={styles.App_bom}>
+            <MenuCom />
+            <Layout className={styles.App_main}>
+              <nav className={styles.App_nav}>
+                <TabsCom />
+              </nav>
+              <Content className={styles.App_outlet}>
+                <WaterMarkBox content={''}>{children()}</WaterMarkBox>
+              </Content>
+            </Layout>
+          </Layout>
+        </>
+      );
+    } else if (type !== undefined) {
+      return (
+        <Content className={styles.App_outlet}>
+          <WaterMarkBox content={''}>{children()}</WaterMarkBox>
+        </Content>
+      );
+    }
+  };
+
+  const children = () => {
+    return (
+      <Suspense fallback={<Loading />}>
+        <SwitchTransition>
+          <CSSTransition
+            key={location.pathname}
+            timeout={360}
+            // nodeRef={nodeRef}
+            classNames={'page'}
+            unmountOnExit
+          >
+            {() => {
+              return (
+                <div
+                  // style={{color: colorTextBase}}
+                  // ref={nodeRef}
+                  className={'page'}
+                >
+                  {currentOutlet}
+                </div>
+              );
+            }}
+          </CSSTransition>
+        </SwitchTransition>
+      </Suspense>
+    );
+  };
+
+  return <Layout className={styles.App}>{create_layout(layout)}</Layout>;
 }
 
 export default App;
