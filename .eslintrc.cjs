@@ -9,6 +9,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:react-hooks/recommended',
         'plugin:prettier/recommended', //配置prettier和eslint的适配问题
+        'prettier'
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -24,10 +25,10 @@ module.exports = {
             'warn',
             { allowConstantExport: true },
         ],
-        "prettier/prettier": [
-            "error",
+        'prettier/prettier': [
+            'error',
             {
-                "endOfLine": "auto"
+                endOfLine: 'auto',
             },
         ],
         '@typescript-eslint/no-non-null-assertion': 'off',
