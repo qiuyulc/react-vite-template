@@ -59,13 +59,15 @@ function App() {
             timeout={360}
             // nodeRef={nodeRef}
             classNames={'page'}
-            unmountOnExit>
+            unmountOnExit
+          >
             {() => {
               return (
                 <div
                   // style={{color: colorTextBase}}
                   // ref={nodeRef}
-                  className={'page'}>
+                  className={'page'}
+                >
                   {currentOutlet}
                 </div>
               );
