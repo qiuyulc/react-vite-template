@@ -13,8 +13,8 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
+      "eslint --fix",
+      "prettier --write"
     ],
     "src/**/*.{css,scss,less}": [
       "prettier --write"
@@ -54,7 +54,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "mockjs": "^1.1.0",
-    "prettier": "^3.0.0",
+    "prettier": "^3.2.4",
     "rollup-plugin-visualizer": "^5.12.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.0"
