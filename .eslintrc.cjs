@@ -25,9 +25,7 @@ module.exports = {
             { allowConstantExport: true },
         ],
         '@typescript-eslint/no-non-null-assertion': 'off',
-        'prettier/prettier': ['error', {
-            endOfLine: 'auto'
-        }],
+        "linebreak-style": ["error", "unix"],
         '@typescript-eslint/no-unsafe-member-access': 'off', //禁止成员访问类型 any 为 的值。
         '@typescript-eslint/no-unsafe-return': 'off', //不允许从函数返回具有类型的 any 值。
         '@typescript-eslint/no-floating-promises': 'off',
