@@ -10,7 +10,6 @@ import {
 import { useEffect } from 'react';
 import { setMenu, removeTab, getMenuList } from '@/redux/menu';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { message } from 'antd';
 import { get_routers } from '@/router/utils';
 import _ from 'lodash';
 
@@ -75,13 +74,13 @@ const RouterView = () => {
       dispatch(setMenu([]));
     }
 
-    if (location.pathname.indexOf('login') === -1) {
-      const local_user = sessionStorage.getItem('userInfo') || 0;
-      if (!local_user) {
-        message.success('登录失效，请重新登录');
-        navigate('/login');
-      }
-    }
+    // if (location.pathname.indexOf('login') === -1) {
+    //   const local_user = sessionStorage.getItem('userInfo') || 0;
+    //   if (!local_user) {
+    //     message.success('登录失效，请重新登录');
+    //     navigate('/login');
+    //   }
+    // }
   }, [location.pathname, dispatch, navigate]);
   //判断是否已经有了导航数据
   useEffect(() => {

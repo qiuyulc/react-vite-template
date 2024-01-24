@@ -20,6 +20,7 @@ export const get_routers = (data: global_menu[]) => {
       if (children.length > 0) {
         datas[i]['children'] = children.map((u: global_menu) => {
           const { meta } = u;
+          const { is_token } = meta;
           let path = u.name;
           const params = get_params(meta?.params || '');
           if (params) {
@@ -27,7 +28,7 @@ export const get_routers = (data: global_menu[]) => {
           }
           return {
             path: path,
-            element: Model(u.key),
+            element: <Model is_token={is_token} router_link={u.key} />,
           };
         });
         set_children_data(datas[i]['children']);
@@ -40,6 +41,7 @@ export const get_routers = (data: global_menu[]) => {
     .filter((u: global_menu) => u.parent_id === '0' && u.name !== 'open')
     .map((u) => {
       const { meta, name, id, key } = u;
+      const { is_token } = meta;
       const params = get_params(meta?.params || '');
       const obj: RouteObject = { id };
       if (params) {
@@ -48,7 +50,7 @@ export const get_routers = (data: global_menu[]) => {
         obj.path = name;
       }
 
-      obj.element = Model(key);
+      obj.element = <Model is_token={is_token} router_link={key} />;
       set_children_data([obj]);
       return obj;
     });

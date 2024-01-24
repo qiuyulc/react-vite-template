@@ -2,6 +2,7 @@
 
 interface meta {
   title: string;
+  is_token?: boolean;
   params?: string[] | string;
 }
 
