@@ -8,7 +8,7 @@ const initialState: {
 };
 
 export const globalSlice = createSlice({
-  name: 'menu',
+  name: 'global',
   // `createSlice` 将从 `initialState` 参数推断 state 类型
   initialState,
   reducers: {},
