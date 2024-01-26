@@ -19,8 +19,8 @@ export const get_routers = (data: global_menu[]) => {
       );
       if (children.length > 0) {
         datas[i]['children'] = children.map((u: global_menu) => {
-          const { meta } = u;
-          const { is_token } = meta;
+          const { meta = { is_token: false, params: '' } } = u;
+          const { is_token = false } = meta;
           let path = u.name;
           const params = get_params(meta?.params || '');
           if (params) {
@@ -40,8 +40,8 @@ export const get_routers = (data: global_menu[]) => {
   const links = data
     .filter((u: global_menu) => u.parent_id === '0' && u.name !== 'open')
     .map((u) => {
-      const { meta, name, id, key } = u;
-      const { is_token } = meta;
+      const { meta = { is_token: false, params: '' }, name, id, key } = u;
+      const { is_token = false } = meta;
       const params = get_params(meta?.params || '');
       const obj: RouteObject = { id };
       if (params) {
