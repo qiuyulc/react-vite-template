@@ -38,7 +38,6 @@ Mock.mock('/get_menu', function () {
         key: 'welcome',
         meta: {
           title: '首页',
-          is_token: true,
         },
       },
       {
@@ -51,7 +50,6 @@ Mock.mock('/get_menu', function () {
         key: 'analysis',
         meta: {
           title: '分析页',
-          is_token: true,
         },
       },
       {
@@ -64,7 +62,6 @@ Mock.mock('/get_menu', function () {
         key: 'jurisdiction',
         meta: {
           title: '权限页',
-          is_token: true,
         },
       },
       {
@@ -76,7 +73,6 @@ Mock.mock('/get_menu', function () {
         key: 'jurisdiction/user_jurisdiction',
         meta: {
           title: '用户权限',
-          is_token: true,
         },
       },
       {
@@ -88,7 +84,6 @@ Mock.mock('/get_menu', function () {
         key: 'jurisdiction/menu_jurisdiction',
         meta: {
           title: '菜单权限',
-          is_token: true,
         },
       },
       {
@@ -128,7 +123,6 @@ Mock.mock('/get_menu', function () {
         key: 'article',
         meta: {
           title: '文章管理',
-          is_token: true,
         },
       },
       {
@@ -141,7 +135,7 @@ Mock.mock('/get_menu', function () {
         key: 'article/edit_article',
         meta: {
           title: '文章编辑',
-          is_token: true,
+
           // params:[':id']
         },
       },
@@ -155,7 +149,6 @@ Mock.mock('/get_menu', function () {
         key: 'article/manage_article',
         meta: {
           title: '文章查看',
-          is_token: true,
         },
       },
     ],

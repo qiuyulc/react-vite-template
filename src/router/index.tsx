@@ -1,6 +1,7 @@
 import App from '@/App';
 import Login from '@/views/login';
 import Empty from '@/views/empty';
+import { message } from 'antd';
 import {
   Navigate,
   useRoutes,
@@ -74,13 +75,13 @@ const RouterView = () => {
       dispatch(setMenu([]));
     }
 
-    // if (location.pathname.indexOf('login') === -1) {
-    //   const local_user = sessionStorage.getItem('userInfo') || 0;
-    //   if (!local_user) {
-    //     message.success('登录失效，请重新登录');
-    //     navigate('/login');
-    //   }
-    // }
+    if (location.pathname.indexOf('login') === -1) {
+      const local_user = sessionStorage.getItem('userInfo') || 0;
+      if (!local_user) {
+        message.success('登录失效，请重新登录');
+        navigate('/login');
+      }
+    }
   }, [location.pathname, dispatch, navigate]);
   //判断是否已经有了导航数据
   useEffect(() => {
