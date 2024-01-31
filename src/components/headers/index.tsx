@@ -33,23 +33,28 @@ const Headers = () => {
     (state) => state.menuSlice.inlineCollapsed,
   );
   // const {global_color, colorPrimary} = useAppSelector(state => state.globalSlice.global);
-  const [USER, setUSER] = useState<useInfoType>({
-    userName: '',
-    password: '',
-    token: '',
-  });
+  // const [USER, setUSER] = useState<useInfoType>({
+  //   userName: '',
+  //   password: '',
+  //   token: '',
+  // });
   const navigate = useNavigate();
-  useEffect(() => {
-    const user = sessionStorage.getItem('userInfo') || 0;
-    if (user) {
-      setUSER(JSON.parse(user) as useInfoType);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const user = sessionStorage.getItem('userInfo') || 0;
+  //   if (user) {
+  //     setUSER(JSON.parse(user) as useInfoType);
+  //   }
+  // }, []);
+  const user: useInfoType = sessionStorage.getItem('userInfo')
+    ? (JSON.parse(
+        sessionStorage.getItem('userInfo') ||
+          "{ userName: '', password: '', token: '' }",
+      ) as useInfoType)
+    : { userName: '', password: '', token: '' };
+
   const clearUser = () => {
-    if (USER.token) {
-      sessionStorage.removeItem('userInfo');
-      navigate('/login', { replace: true });
-    }
+    sessionStorage.removeItem('userInfo');
+    navigate('/login', { replace: true });
   };
   return (
     <Header
@@ -79,7 +84,7 @@ const Headers = () => {
           />
         </Badge>
         <span className={styles.username}>
-          欢迎 {USER.userName}
+          欢迎 {user.userName}
           <div
             className={styles.user_list}
             // style={{background: colorBgContainer}}

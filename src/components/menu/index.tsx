@@ -13,39 +13,31 @@ interface route extends global_route {
 }
 
 const get_menu = (data: global_route[]) => {
-  const links = data.filter((u: global_route) => u.parent_id === '0');
-  const set_children_data = (datas: route[] | undefined) => {
-    if (Array.isArray(datas)) {
-      for (let i = 0; i < datas.length; i++) {
-        const children = data.filter((u) => u.parent_id === datas[i].id);
-
-        if (children.length > 0) {
-          datas[i].children = children.map((u) => {
-            return {
-              ...u,
-              icon: <IconFont icon_link={u.icon as string} />,
-            };
-          });
-          set_children_data(datas[i]['children']);
-        } else {
-          return;
-        }
+  // 定义一个递归函数来为每个路由项设置 children 属性
+  const setChildrenData = (menuItems: route[]): route[] => {
+    return menuItems.map((item) => {
+      const children = data.filter((u) => u.parent_id === item.id);
+      // 如果有子项，递归调用 setChildrenData 来设置子项的 children
+      if (children.length > 0) {
+        return {
+          ...item,
+          icon: <IconFont icon_link={item.icon as string} />,
+          children: setChildrenData(children), // 递归设置子项
+        };
       }
-    } else {
-      return;
-    }
+      // 如果没有子项，直接返回当前项（添加 icon）
+      return {
+        ...item,
+        icon: <IconFont icon_link={item.icon as string} />,
+      };
+    });
   };
 
-  for (let i = 0; i < links.length; i++) {
-    links[i].icon = <IconFont icon_link={links[i].icon as string} />;
-
-    set_children_data([links[i]]);
-  }
-
-  const menu: route[] = [...links];
-
-  return menu;
+  // 从顶级路由开始构建菜单
+  const topLevelRoutes = data.filter((u) => u.parent_id === '0');
+  return setChildrenData(topLevelRoutes); // 使用递归函数构建完整的菜单结构
 };
+
 const getOpenKeys = () => {
   const paths = location.pathname.split('/').filter((u) => u);
   //大于2 表示需要打开SubMenu
@@ -70,11 +62,13 @@ const MenuCom = () => {
     (state) => state.menuSlice.menu_list,
   );
   const items: MenuProps['items'] = get_menu(_.cloneDeep(menu));
-  const menuClick: MenuProps['onClick'] = (e) => {
-    if (e.key.indexOf('http') === 0) {
-      window.open(e.key);
+  const menuClick: MenuProps['onClick'] = ({ key }) => {
+    const data = menu.find((u) => u.key === key);
+
+    if (data && data.name === 'open') {
+      window.open(key);
     } else {
-      navigate(e.key);
+      navigate(key);
     }
   };
   const openChange = (openKeys: string[]) => {

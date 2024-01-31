@@ -16,12 +16,12 @@ const Model = (props: { router_link: string }) => {
   //   }
   // }, [local_user, navigate, is_token]);
 
-  let Com = null;
+  let LazyCom = null;
   if (router_link) {
     const URL = '/src/views/' + router_link + '/index.tsx';
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    Com = React.lazy(modules[URL] as any);
-    return <>{Com ? <Com /> : ''}</>;
+    LazyCom = React.lazy(modules[URL] as any);
+    return <>{LazyCom ? <LazyCom /> : ''}</>;
   } else {
     return <></>;
   }

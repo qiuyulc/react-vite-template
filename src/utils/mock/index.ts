@@ -135,8 +135,7 @@ Mock.mock('/get_menu', function () {
         key: 'article/edit_article',
         meta: {
           title: '文章编辑',
-
-          // params:[':id']
+          // params: [':id'],
         },
       },
       {

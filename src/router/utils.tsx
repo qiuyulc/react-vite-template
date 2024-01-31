@@ -12,47 +12,27 @@ export const get_params = (data: string[] | string): string => {
   }
 };
 export const get_routers = (data: global_menu[]) => {
-  const set_children_data = (datas: RouteObject[] = []) => {
-    for (let i = 0; i < datas.length; i++) {
-      const children = data.filter(
-        (u: global_menu) => u.parent_id === datas[i].id && u.name !== 'open',
-      );
-      if (children.length > 0) {
-        datas[i]['children'] = children.map((u: global_menu) => {
-          const { meta } = u;
-          let path = u.name;
-          const params = get_params(meta?.params || '');
-          if (params) {
-            path = path + params;
-          }
-          return {
-            path: path,
-            element: Model({ router_link: u.key }),
-          };
-        });
-        set_children_data(datas[i]['children']);
-      } else {
-        return;
-      }
-    }
+  const buildRouteObject = (menu: global_menu): RouteObject => {
+    const { meta, name, key } = menu;
+    const params = get_params(meta?.params || '');
+    const path = params ? name + params : name;
+    const children = data.filter(
+      (child) => child.parent_id === menu.id && child.name !== 'open',
+    );
+
+    // 构建当前路由对象
+    const routeObject: RouteObject = {
+      path,
+      element: Model({ router_link: key }),
+      // 如果有子路由，递归调用 buildRouteObject 来构建它们
+      ...(children.length > 0 && { children: children.map(buildRouteObject) }),
+    };
+
+    return routeObject;
   };
-  const links = data
-    .filter((u: global_menu) => u.parent_id === '0' && u.name !== 'open')
-    .map((u) => {
-      const { meta, name, id, key } = u;
 
-      const params = get_params(meta?.params || '');
-      const obj: RouteObject = { id };
-      if (params) {
-        obj.path = name + params;
-      } else {
-        obj.path = name;
-      }
-
-      obj.element = Model({ router_link: key });
-      set_children_data([obj]);
-      return obj;
-    });
-  console.log(links);
-  return [...links];
+  // 从顶级路由开始构建路由树
+  return data
+    .filter((menu) => menu.parent_id === '0' && menu.name !== 'open')
+    .map(buildRouteObject);
 };

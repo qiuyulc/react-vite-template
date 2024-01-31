@@ -1,14 +1,15 @@
 import { Button, Form, Input, Select } from 'antd';
 const { Option } = Select;
-const edit_article = () => {
+// import { useSearchParams, useParams } from 'react-router-dom';
+const Edit_article = () => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
 
   // let [searchParams, setSearchParams] = useSearchParams();
-  // console.log(searchParams)
+  // console.log(searchParams);
   // let params = useParams();
-  // console.log(params,'params')
+  // console.log(params, 'params');
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -62,4 +63,4 @@ const edit_article = () => {
   );
 };
 
-export default edit_article;
+export default Edit_article;

@@ -79,7 +79,7 @@ const RouterView = () => {
       const local_user = sessionStorage.getItem('userInfo') || 0;
       if (!local_user) {
         message.success('登录失效，请重新登录');
-        navigate('/login');
+        navigate('/login', { replace: true });
       }
     }
   }, [location.pathname, dispatch, navigate]);
