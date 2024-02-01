@@ -3,3 +3,6 @@
 
 # npm run lint
 npx lint-staged
+
+
+echo "Running pre-commit hook"
