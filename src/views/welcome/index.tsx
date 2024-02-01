@@ -1,7 +1,7 @@
 import styles from './index.module.less';
 
 const Welcome = () => {
-  return <div>welcome</div>;
+  return <div>wel</div>;
 };
 
 export default Welcome;
